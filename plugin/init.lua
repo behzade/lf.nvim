@@ -19,7 +19,7 @@ local function hijack_directory()
     end
 
     local bufnr = vim.fn.bufnr()
-    vim.cmd(string.format('keepjumps keepalt term lf  %s', vim.fn.fnameescape(path)))
+    vim.cmd(string.format('keepjumps keepalt term lf %s', vim.fn.fnameescape(path)))
     vim.cmd(string.format('silent! bwipeout %d', bufnr))
 end
 
@@ -29,7 +29,5 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     group = 'lf_hijack',
     pattern = { "*" },
     nested = true,
-    callback = function()
-        hijack_directory()
-    end
+    callback = hijack_directory
 })
