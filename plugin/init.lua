@@ -6,7 +6,7 @@ vim.g.loaded_lf_hijack = 1
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.cmd('autocmd! FileExplorer *')
+-- vim.cmd('autocmd! FileExplorer *')
 
 local function hijack_directory()
     local path = vim.fn.expand('%:p')
