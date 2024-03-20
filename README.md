@@ -14,4 +14,4 @@ return {
 ```
 
 ## Usage
-This plugins adds a few autocmds to hijack opening directories in neovim and deleting terminal buffers when they are closed to make working with terminal buffers more smooth. If these defaults cause any compatibility issues with other plugins or settings, please create an issue.
+This plugins adds a few autocmds to hijack opening directories in neovim with [lf](https://github.com/gokcehan/lf) and also deleting terminal buffers when they are closed to make working with terminal buffers more smooth. If these defaults cause any compatibility issues with other plugins or settings, please create an issue.
