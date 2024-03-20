@@ -2,6 +2,8 @@ if vim.fn.exists('g:loaded_lf_hijack') ~= 0 then
     return
 end
 
+local autocmd = vim.api.nvim_create_autocmd
+
 vim.g.loaded_lf_hijack = 1
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -25,9 +27,28 @@ end
 
 vim.api.nvim_create_augroup('lf_hijack', { clear = true })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
+autocmd({ "BufEnter" }, {
     group = 'lf_hijack',
     pattern = { "*" },
     nested = true,
     callback = hijack_directory
+})
+
+local delete_term_buf = function(event)
+    if (vim.fn.len(vim.fn.win_findbuf(event.buf)) > 0) then
+        if (event.match ~= "UnceptionEditRequestReceived" and #vim.fn.getbufinfo({ buflisted = 1 })) == 1 then
+            vim.cmd("q")
+        end
+        vim.cmd("silent bdelete! " .. event.buf)
+    end
+end
+
+autocmd({ "TermClose" }, {
+    pattern = { "*" },
+    callback = delete_term_buf
+})
+
+autocmd({ "User" }, {
+    pattern = { "UnceptionEditRequestReceived" },
+    callback = delete_term_buf
 })
